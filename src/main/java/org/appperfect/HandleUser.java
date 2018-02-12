@@ -16,6 +16,12 @@ public class HandleUser {
 		@FormParam("url") String url;
 		@FormParam("username") String username;
 		@FormParam("query") String query;*/
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String responce="Driver is "+driver+" URL is "+url+" "+" username is "+username+" query is "+query;
 		return Response.status(200).entity(responce).build();
 	}
