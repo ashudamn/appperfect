@@ -3,8 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <title>Handle Query Request</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var headings=[];
+	$.ajax({
+		type:"GET",
+		url:"webapi/myresource",
+		dataType:"json",
+		contentType:"application/json; charset=utf-8",
+		success:function(response){
+			console.log(response);
+			headings=[];
+			var input='<tr>';
+			for (var key in response[0]){
+				<!--console.log(key);-->
+				input=input+'<th><button id='+key+'>'+key+'</button></th>';
+				headings.push(key);
+			}
+			<!--console.log(headings);-->
+			input=input+'</tr>';
+			$('#result').append(input);
+			input='';
+			$.each(response,function(index,element){
+			<!--console.log(element)-->
+			input=input+'<tr>';
+			<!--populate the json data in table-->
+			$.each(element,function(ind,ele){
+				input=input+'<td>'+ele+'</td>';
+			});
+			input=input+'</tr>';
+			$('#result').append(input);
+			input='';
+			});
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});
+});
+</script>
 </head>
 <body>
 I will show results
+<select name="attributes" id="attr">
+<option>#records</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+</select>
+<table id="result" border="1"></table>
+<div class="pagination">
+<button id="first">FIRST</button>
+<button id="prev">PREV</button>
+<a id="page1">1</a>
+<a id="page2">2</a>
+<a id="page3">3</a>
+<a id="page4">4</a>
+<a id="page5">5</a>
+<button id="next">NEXT</button>
+<button id="last">LAST</button>
+</div>
 </body>
 </html>
