@@ -22,13 +22,19 @@ public class HandleUser {
 			ErrorFinder.validateRequired(driver, url, username, password, query);
 			AccessDB.connect2DB(driver, url, username, password);
 			AccessDB.execute(query);
+			AccessDB.setQuery(query);
+			ResultToJson.convert(AccessDB.getRs());
+			AccessDB.setRecordSize(ResultToJson.getJson().length());
+			System.out.println(AccessDB.getQuery());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			//respMessage=e.getMessage();
 			ErrorFinder.findError(e);
 			e.printStackTrace();
+			MyResource.reset();
 			try {
 				response= Response.seeOther(new URI("http://localhost:8080/appperfect/Error.jsp")).build();
+				
 			} catch (URISyntaxException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -38,6 +44,7 @@ public class HandleUser {
 		
 		try {
 			response = Response.seeOther(new URI("http://localhost:8080/appperfect/second.html")).build();
+			MyResource.reset();
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			System.out.println("problem in generating response");
