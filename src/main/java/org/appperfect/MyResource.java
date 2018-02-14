@@ -86,8 +86,8 @@ public class MyResource {
     			{
     				offset=0;
     				reachFirst=true;
-    				reachLast=false;
     			}
+    			
     			}
     			System.out.println("offset in previous is "+offset);
     			query=query+" OFFSET "+offset;
@@ -114,6 +114,13 @@ public class MyResource {
     			reachFirst=false;
     			System.out.println("offset in last is "+offset);
     		}
+    		if(offset>0 && offset<size)
+    		{
+    		reachLast=false;
+    		reachFirst=false;
+    		}
+    		System.out.println("the reached first has value "+reachFirst);
+    		System.out.println("the reached last has value "+reachLast);
     	try {
     		System.out.println(query);
     		AccessDB.execute(query);
@@ -122,11 +129,12 @@ public class MyResource {
 			jsonArray=ResultToJson.getJson();
 			if(reachLast==true)
 			{
-
+				//reachFirst=false;
 				obj.put("end","Reachedlast");
 			}
 			else if(reachFirst==true)
 			{
+				//reachLast=false;
 				obj.put("end", "Reachedfirst");
 			}
 			else{

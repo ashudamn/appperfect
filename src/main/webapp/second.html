@@ -31,7 +31,9 @@ $(document).ready(function(){
 			var end=response[response.length-1];
 			if(end['end']=="Reachedlast")
 			{
-				console.log("you reached end")
+				console.log("you reached end");
+				$('#result').empty();
+				$('#result').html("reached end");
 			}
 			else
 			{
