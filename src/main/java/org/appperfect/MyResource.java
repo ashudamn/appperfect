@@ -30,12 +30,16 @@ public class MyResource {
 	private static boolean reachLast,reachFirst;
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getIt(@QueryParam("num") String num,@QueryParam("order") String order,@QueryParam("next") String next,@QueryParam("prev") String prev,@QueryParam("first") String first,@QueryParam("last") String last,@QueryParam("param") String param) {
+    public Response getIt(@QueryParam("num") String num,@QueryParam("order") String order,@QueryParam("next") String next,@QueryParam("prev") String prev,@QueryParam("first") String first,@QueryParam("last") String last,@QueryParam("param") String param,@QueryParam("reset") String reset) {
     	String result="";
     	int numr=5;
     	JSONArray jsonArray = null;
     	String query=AccessDB.getQuery();
     	int size=AccessDB.getRecordSize();
+    		if(reset!=null && !reset.isEmpty()){
+    			System.out.println("reset clicked ");
+    			offset=0;
+    		}
     		if(param==null||param.isEmpty()){
     			this.param="";
     		}
@@ -52,6 +56,7 @@ public class MyResource {
     		}
     		if(num==null||num.isEmpty()){
     			this.num="5";
+    			query=query+" LIMIT "+this.num;
     		}
     		else{
     			this.num=num;	
