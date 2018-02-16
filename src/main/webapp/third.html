@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+<h1>First angular Response is</h1>
+<p>{{myWelcome}}</p>
+</div>
+<script>
+var app = angular.module('myApp',[]);
+app.controller('myCtrl',
+		function($scope,$http)
+		{
+	$http.post("webapi/myresource", "", "")
+	   .then(
+	       function(response){
+	         // success callback
+	         $.myWelcome=response;
+	       }, 
+	       function(response){
+	         // failure callback
+	       }
+	    );
+		});
+</script>
+</body>
+</html>

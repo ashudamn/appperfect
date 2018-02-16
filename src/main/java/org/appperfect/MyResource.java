@@ -2,7 +2,10 @@ package org.appperfect;
 
 import java.sql.SQLException;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -28,9 +31,10 @@ public class MyResource {
 	private String order,num,next,prev,first,last,param;
 	private static int offset;
 	private static boolean reachLast,reachFirst;
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getIt(@QueryParam("num") String num,@QueryParam("order") String order,@QueryParam("next") String next,@QueryParam("prev") String prev,@QueryParam("first") String first,@QueryParam("last") String last,@QueryParam("param") String param,@QueryParam("reset") String reset) {
+    @POST
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getIt(@FormParam("num") String num,@FormParam("order") String order,@FormParam("next") String next,@FormParam("prev") String prev,@FormParam("first") String first,@FormParam("last") String last,@FormParam("param") String param,@FormParam("reset") String reset) {
     	String result="";
     	int numr=5;
     	JSONArray jsonArray = null;

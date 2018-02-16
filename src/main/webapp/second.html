@@ -20,10 +20,10 @@ $(document).ready(function(){
 	$.fn.myFunction=function()
 	{
 		$.ajax({
-		type:"GET",
+		type:"POST",
 		url:"webapi/myresource",
 		dataType:"json",
-		contentType:"application/json; charset=utf-8",
+		contentType:"application/x-www-form-urlencoded; charset=UTF-8",
 		data:{param:parameter,order:order,prev:prev,next:next,num:num,first:first,last:last,reset:reset},
 		success:function(response){
 			console.log(response);
@@ -159,6 +159,7 @@ I will show results
 <a id="page5">5</a>
 <button id="next">NEXT</button>
 <button id="last">LAST</button>
+<a href="third.html">angular response</a>
 </div>
 </body>
 </html>
