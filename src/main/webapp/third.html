@@ -9,12 +9,24 @@
 <div ng-app="myApp" ng-controller="myCtrl">
 <h1>First angular Response is</h1>
 <p>{{myWelcome}}</p>
+<table id="result" border="1">
+<tr>
+<th ng-repeat="column in table.cols[0]"><button>{{column}}</button></th>
+</tr>
+<tr ng-repeat="row in table.rows">
+<td ng-repeat="column in table.cols[0]">{{row[column]}}</td>
+</tr>
+</table>
 </div>
 <script>
 var app = angular.module('myApp',[]);
 app.controller('myCtrl',
 		function($scope,$http)
 		{
+				$scope.table={
+						rows:[],
+						cols:[]
+							};
 			var data={
 					param:"",
 					order:"",
@@ -36,11 +48,25 @@ app.controller('myCtrl',
 	   		.then(
 	       			function(response){
 	         		// success callback
-	         		$scope.myWelcome=response;
+	         		$scope.myWelcome=response.data;
+	         		console.log(response.data);
+	         		<!--$scope.table.push({rows:response.data,cols:Object.keys(response.data)});-->
+	         		console.log(response.data["0"]);
+	         		var response_length=response.data.length;
+	         		for(var i=0;i<response_length-1;i++){
+	         			$scope.table.rows.push(response.data[i]);
+	         			$scope.table.cols.push(Object.keys(response.data[i]));
+	         			console.log(response.data[i]);
+	         			<!--console.log(Object.keys(response.data[i]));-->
+	         		}
+	         		console.log($scope.table);
+	         		console.log($scope.table.rows);
+         			console.log($scope.table.cols);
 	      			 }, 
 	       			function(response){
 	         		// failure callback
 	         		$scope.myWelcome=response;
+	         		console.log(response);
 	       			}
 	   			 );
 		});
