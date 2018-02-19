@@ -15,16 +15,34 @@ var app = angular.module('myApp',[]);
 app.controller('myCtrl',
 		function($scope,$http)
 		{
-	$http.post("webapi/myresource", "", "")
-	   .then(
-	       function(response){
-	         // success callback
-	         $.myWelcome=response;
-	       }, 
-	       function(response){
-	         // failure callback
-	       }
-	    );
+			var data={
+					param:"",
+					order:"",
+					prev:"",
+					next:"",
+					num:"",
+					first:"",
+					last:"",
+					reset:""	
+			};
+			$http(
+						{
+							method:'POST',
+							url:'webapi/angresponse',
+							data:data,
+							headers:{'Content-Type':'application/json'}
+						}
+					)
+	   		.then(
+	       			function(response){
+	         		// success callback
+	         		$scope.myWelcome=response;
+	      			 }, 
+	       			function(response){
+	         		// failure callback
+	         		$scope.myWelcome=response;
+	       			}
+	   			 );
 		});
 </script>
 </body>
